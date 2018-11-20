@@ -33,7 +33,7 @@ class PropertyRepository extends ServiceEntityRepository
     /**
      * @return Property[]
      */
-    public function findLastest(): array
+    public function findLatest(): array
     {
         return $this->findVisibleQuery()
             ->setMaxResults(4)
@@ -47,9 +47,10 @@ class PropertyRepository extends ServiceEntityRepository
             ->where('p.sold = false');
     }
 
-    // /**
-    //  * @return Property[] Returns an array of Property objects
-    //  */
+
+//    /**
+//     * @return Property[] Returns an array of Property objects
+//     */
     /*
     public function findByExampleField($value)
     {

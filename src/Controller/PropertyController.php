@@ -21,6 +21,11 @@ class PropertyController extends AbstractController
      */
     private $em;
 
+    /**
+     * PropertyController constructor.
+     * @param PropertyRepository $repository
+     * @param ObjectManager $em
+     */
     public function __construct(PropertyRepository $repository, ObjectManager $em)
     {
         $this->repository = $repository;
@@ -33,7 +38,7 @@ class PropertyController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render("property/index.html.twig", [
+        return $this->render('property/index.html.twig', [
             'current_menu' => 'properties'
         ]);
     }
@@ -52,7 +57,7 @@ class PropertyController extends AbstractController
                 'slug' => $property->getSlug()
             ], 301);
         }
-        return $this->render("property/show.html.twig", [
+        return $this->render('property/show.html.twig', [
             'property' => $property,
             'current_menu' => 'properties'
         ]);

@@ -40,6 +40,11 @@ class PropertyType extends AbstractType
 
     private function getChoices()
     {
-        return array_flip(Property::HEAT);
+        $choices = Property::HEAT;
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
     }
 }
