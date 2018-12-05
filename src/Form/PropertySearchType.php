@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\PropertySearch;
+use App\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +28,13 @@ class PropertySearchType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Budget max'
                 ]
+            ])
+            ->add('tags', EntityType::class, [
+                'label' => false,
+                'required' => false,
+                'multiple' => true,
+                'class' => Tag::class,
+                'choice_label' => 'name'
             ])
         ;
     }

@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/option")
+ * @Route("/admin/tag")
  */
 class AdminTagController extends AbstractController
 {
     /**
-     * @Route("/", name="admin.option.index", methods="GET")
+     * @Route("/", name="admin.tag.index", methods="GET")
      * @param TagRepository $tagRepository
      * @return Response
      */
     public function index(TagRepository $tagRepository): Response
     {
-        return $this->render('tag/index.html.twig', ['tags' => $tagRepository->findAll()]);
+        return $this->render('admin/tag/index.html.twig', ['tags' => $tagRepository->findAll()]);
     }
 
     /**
-     * @Route("/new", name="tag_new", methods="GET|POST")
+     * @Route("/new", name="admin.tag.new", methods="GET|POST")
      * @param Request $request
      * @return Response
      */
@@ -40,18 +40,18 @@ class AdminTagController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($tag);
             $em->flush();
-
-            return $this->redirectToRoute('tag_index');
+            $this->addFlash('success', 'Tag créé avec succès');
+            return $this->redirectToRoute('admin.tag.index');
         }
 
-        return $this->render('tag/new.html.twig', [
+        return $this->render('admin/tag/new.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="tag_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="admin.tag.edit", methods="GET|POST")
      * @param Request $request
      * @param Tag $tag
      * @return Response
@@ -63,18 +63,18 @@ class AdminTagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('tag_edit', ['id' => $tag->getId()]);
+            $this->addFlash('success', 'Tag édité avec succès');
+            return $this->redirectToRoute('admin.tag.index');
         }
 
-        return $this->render('tag/edit.html.twig', [
+        return $this->render('admin/tag/edit.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="tag_delete", methods="DELETE")
+     * @Route("/{id}", name="admin.tag.delete", methods="DELETE")
      * @param Request $request
      * @param Tag $tag
      * @return Response
@@ -85,8 +85,9 @@ class AdminTagController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($tag);
             $em->flush();
+            $this->addFlash('success', 'Tag supprimé avec succès');
         }
 
-        return $this->redirectToRoute('tag_index');
+        return $this->redirectToRoute('admin.tag.index');
     }
 }
