@@ -2,6 +2,8 @@
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
+/public/media/
+/public/images/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -18,3 +20,7 @@
 ###> .idea ###
 /.idea/
 ###< .idea ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

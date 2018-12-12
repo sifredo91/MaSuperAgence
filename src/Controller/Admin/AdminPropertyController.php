@@ -73,6 +73,7 @@ class AdminPropertyController extends AbstractController
      * @param Property $property
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function edit(Property $property, Request $request)
     {
@@ -80,6 +81,8 @@ class AdminPropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $property->setUpdatedAt(new \DateTime('now'));
+            $this->em->persist($property);
             $this->em->flush();
             $this->addFlash('success', 'Bien modifié avec succès');
             return $this->redirectToRoute('admin.property.index');
