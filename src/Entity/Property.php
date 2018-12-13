@@ -358,6 +358,7 @@ class Property
      */
     public function getImageFile(): ?File
     {
+#parse("PHP File Header.php")
         return $this->imageFile;
     }
 
